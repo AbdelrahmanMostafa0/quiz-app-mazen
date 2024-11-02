@@ -45,6 +45,7 @@ export default function Home() {
           {quizQuestions.map((q) => {
             return (
               <Question
+                key={q.question}
                 answers={q.answers}
                 correctAnswer={q.correctAnswer}
                 question={q.question}
