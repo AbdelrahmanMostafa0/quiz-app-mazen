@@ -1,5 +1,6 @@
 import Question from "@/components/Question/Question";
 import { quizQuestions } from "@/data/quizQuestions ";
+import { secondQuizQuestions } from "@/data/second-quiz-questions";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -9,10 +10,11 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const [answered, setAnswered] = useState(0);
   const [viewScore, setViewScore] = useState(false);
-  const passed = total * 2 > 6;
+  const passed = total * 2 >= secondQuizQuestions.length * 2;
   const retake = () => {
     router.reload();
   };
+
   return (
     <div className="container mx-auto px-4 py-10 space-y-10" dir="rtl">
       <h1 className="text-center text-3xl font-bold">
@@ -31,7 +33,7 @@ export default function Home() {
               passed ? "text-green-500" : "text-red-500"
             }`}
           >
-            {total * 2} / 12
+            {total * 2} / {secondQuizQuestions.length * 2}
           </p>
           <button
             onClick={retake}
@@ -42,7 +44,7 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center w-full gap-10">
-          {quizQuestions.map((q) => {
+          {secondQuizQuestions.map((q) => {
             return (
               <Question
                 key={q.question}
@@ -54,7 +56,7 @@ export default function Home() {
               />
             );
           })}
-          {quizQuestions.length === answered && (
+          {secondQuizQuestions.length === answered && (
             <button
               onClick={() => setViewScore(true)}
               className="max-w-[800px] py-4 px-6 bg-green-600 text-white w-full rounded-lg font-xl font-semibold"
